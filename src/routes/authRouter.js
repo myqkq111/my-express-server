@@ -35,7 +35,7 @@ router.get('/logout', (req, res) => {
 router.post('/join', async (req, res) => {
   const { username, age, password } = req.body;
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }); 
     if (user) {
       return res.status(409).json({ message: 'User already exists' });
     }
@@ -54,7 +54,7 @@ router.post('/join', async (req, res) => {
 router.put('/change-password', async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   try{
-    const user = await User.findOne({ username : req.user.username });
+    const user = await User.findOne({ username });
     if (!user || oldPassword != user.password) {
       return res.status(401).json({ message: 'Authentication failed' });
     }
