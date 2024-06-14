@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import Todo from '../models/Todo.js';
 
 const router = express.Router();
@@ -8,11 +9,8 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try{
-        const todo = await Todo.find({ userId : req.user._id });
-        if(!todo){ 
-            return res.status(401).send('일치하는 documents가 없습니다');
-        }
-        return res.send(todo);
+        const todos = await Todo.find({ userId : req.user._id });
+        return res.json(todos);
     } catch(err){
         return res.status(500).send('Internal server error');
     }
